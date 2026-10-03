@@ -30,6 +30,7 @@ require_once __DIR__ . '/config/db.php';
             <nav>
                 <ul class="nav-links">
                     <li><a href="index.php" class="active">Overview</a></li>
+                    <li><a href="register.php">Register for Raffle</a></li>
                     <li><a href="#setup-guide">Setup Guide</a></li>
                     <li><a href="#modules">Planned Modules</a></li>
                 </ul>
@@ -42,6 +43,11 @@ require_once __DIR__ . '/config/db.php';
         <div class="container">
             <h1>Customer Appreciation Month</h1>
             <p>Welcome to the official Raffle Draw System setup. Built exclusively with vanilla HTML, CSS, JavaScript, PHP, and MySQL.</p>
+            <div style="margin-top: 1.25rem;">
+                <a href="register.php" class="btn btn-secondary" style="font-weight: 700; color: #1e3a8a;">
+                    🎟️ Open Customer Registration Page
+                </a>
+            </div>
         </div>
     </section>
 
@@ -124,6 +130,10 @@ require_once __DIR__ . '/config/db.php';
                     <h3 class="card-title">🎟️ 1. Customer Participants</h3>
                     <div class="card-body">
                         <p>Customer registration and ticket number assignment for customer appreciation month participants.</p>
+                        <p style="margin-top: 0.75rem;">
+                            <span class="badge badge-success">Implemented</span>
+                            <a href="register.php" style="margin-left: 0.5rem; font-weight: 600; font-size: 0.85rem; color: var(--primary-color);">Test Registration &rarr;</a>
+                        </p>
                     </div>
                 </div>
 

@@ -1,0 +1,307 @@
+/* ==========================================================
+   Customer Appreciation Month Raffle Draw System
+   Style: Vanilla CSS (No External Frameworks)
+   ========================================================== */
+
+:root {
+    --primary-color: #2563eb;       /* Royal Blue */
+    --primary-dark: #1d4ed8;
+    --primary-light: #dbeafe;
+    --accent-color: #f59e0b;        /* Gold / Warm Amber for celebration */
+    --accent-hover: #d97706;
+    --success-color: #10b981;       /* Emerald Green */
+    --success-bg: #d1fae5;
+    --danger-color: #ef4444;        /* Crimson Red */
+    --danger-bg: #fee2e2;
+    --warning-color: #f59e0b;
+    --warning-bg: #fef3c7;
+    --text-main: #1f2937;           /* Slate 800 */
+    --text-muted: #6b7280;          /* Gray 500 */
+    --bg-page: #f8fafc;             /* Slate 50 */
+    --bg-card: #ffffff;
+    --border-color: #e2e8f0;        /* Slate 200 */
+    --border-radius: 8px;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    --transition: all 0.2s ease-in-out;
+}
+
+/* CSS Reset & General Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Layout Container */
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Header & Navigation Bar */
+.main-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.brand-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.brand-badge {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.25rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary-color);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #ffffff;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    text-align: center;
+    border-radius: 0 0 16px 16px;
+}
+
+.hero h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+}
+
+.hero p {
+    font-size: 1.15rem;
+    opacity: 0.9;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    margin-bottom: 3rem;
+}
+
+/* Cards & Grid */
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-body {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* Status Alert Boxes */
+.status-box {
+    border-radius: var(--border-radius);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    border: 1px solid transparent;
+}
+
+.status-box.success {
+    background-color: var(--success-bg);
+    border-color: #a7f3d0;
+    color: #065f46;
+}
+
+.status-box.danger {
+    background-color: var(--danger-bg);
+    border-color: #fecaca;
+    color: #991b1b;
+}
+
+.status-box.warning {
+    background-color: var(--warning-bg);
+    border-color: #fde68a;
+    color: #92400e;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: var(--success-bg);
+    color: #065f46;
+}
+
+.badge-danger {
+    background-color: var(--danger-bg);
+    color: #991b1b;
+}
+
+.badge-info {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: var(--text-main);
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+.btn-disabled {
+    background-color: #e2e8f0;
+    color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Code Snippet / Instruction Box */
+.code-block {
+    background-color: #1e293b;
+    color: #f8fafc;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.9rem;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+}
+
+/* Footer */
+.main-footer {
+    background-color: #ffffff;
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+    }
+    
+    .hero h1 {
+        font-size: 1.75rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+}

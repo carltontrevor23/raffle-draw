@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- Logout Notice -->
             <?php if (!empty($loggedOutMessage)): ?>
                 <div class="status-box success" style="margin-bottom: 1.25rem;">
-                    <span>ℹ️</span>
+                    <span></span>
                     <div><?php echo htmlspecialchars($loggedOutMessage); ?></div>
                 </div>
             <?php endif; ?>

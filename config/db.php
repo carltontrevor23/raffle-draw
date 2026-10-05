@@ -6,13 +6,14 @@
  * Default credentials configured for standard local development (XAMPP).
  */
 
-$host     = 'localhost';
-$db_name  = 'raffle_db';
-$username = 'root';
-$password = ''; // Default password in XAMPP is empty
+$host     = getenv('DB_HOST') ?: 'localhost';
+$port     = getenv('DB_PORT') ?: '3306';
+$db_name  = getenv('DB_NAME') ?: 'raffle_db';
+$username = getenv('DB_USER') ?: 'root';
+$password = getenv('DB_PASSWORD') ?: ''; // Default password in XAMPP is empty
 $charset  = 'utf8mb4';
 
-$dsn = "mysql:host={$host};dbname={$db_name};charset={$charset}";
+$dsn = "mysql:host={$host};port={$port};dbname={$db_name};charset={$charset}";
 
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION, // Throw exceptions on SQL errors

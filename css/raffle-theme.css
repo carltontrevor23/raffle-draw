@@ -1,0 +1,1100 @@
+/* Aurum Gold template styling adapted for the raffle application. */
+
+:root {
+    --gold-primary: #B8860B;
+    --gold-light: #D4A84B;
+    --gold-dark: #8B6914;
+    --gold-accent: #C9A227;
+    --bg-dark: #0F0E0C;
+    --bg-card: #1A1815;
+    --bg-card-hover: #252119;
+    --text-primary: #F5F0E8;
+    --text-secondary: #A69F94;
+    --text-muted: #6B6560;
+    --border-color: #2A2622;
+    --success: #4A7C59;
+    --danger: #8B3A3A;
+}
+
+html {
+    scroll-padding-top: 96px;
+}
+
+body.raffle-app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 78px;
+    overflow-x: hidden;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: "Libre Franklin", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.7;
+}
+
+body.raffle-app::before {
+    z-index: 5;
+    opacity: 0.02;
+}
+
+.raffle-app h1,
+.raffle-app h2,
+.raffle-app h3,
+.raffle-app h4,
+.raffle-app h5,
+.raffle-app h6 {
+    color: var(--text-primary);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.raffle-app section {
+    padding: 0;
+}
+
+.raffle-app .container {
+    max-width: 1280px;
+    padding-right: 24px;
+    padding-left: 24px;
+}
+
+.raffle-app .nav {
+    padding: 14px 0;
+    background: rgba(15, 14, 12, 0.96);
+    border-bottom: 1px solid var(--border-color);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+}
+
+.raffle-app .nav.scrolled {
+    padding: 10px 0;
+}
+
+.raffle-app .nav-inner {
+    min-height: 48px;
+    gap: 24px;
+}
+
+.raffle-app .logo {
+    color: var(--text-primary);
+    font-size: 23px;
+    letter-spacing: 0.035em;
+    line-height: 1.15;
+    white-space: nowrap;
+}
+
+.raffle-app .logo span {
+    color: var(--gold-light);
+}
+
+.raffle-app .nav-links {
+    flex: 1;
+    justify-content: center;
+    gap: clamp(20px, 3vw, 40px);
+    margin: 0;
+}
+
+.raffle-app .nav-links a {
+    color: var(--text-secondary);
+    font-family: "Libre Franklin", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    border: 0;
+}
+
+.raffle-app .nav-links a::before {
+    color: var(--gold-primary);
+}
+
+.raffle-app .nav-links a:hover,
+.raffle-app .nav-links a.active {
+    color: var(--gold-light);
+}
+
+.raffle-app .nav-cta {
+    gap: 10px;
+}
+
+.raffle-app .btn {
+    min-height: 44px;
+    width: auto;
+    padding: 12px 20px;
+    border-radius: 0;
+    font-family: "Libre Franklin", Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.raffle-app .btn-primary {
+    color: var(--bg-dark);
+    background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+    border: 1px solid var(--gold-light);
+}
+
+.raffle-app .btn-primary:hover {
+    color: var(--bg-dark);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+    box-shadow: 0 8px 30px rgba(184, 134, 11, 0.25);
+    transform: translateY(-2px);
+}
+
+.raffle-app .btn-outline,
+.raffle-app .btn-secondary {
+    color: var(--gold-light);
+    background: transparent;
+    border: 1px solid var(--gold-dark);
+}
+
+.raffle-app .btn-outline:hover,
+.raffle-app .btn-secondary:hover {
+    color: var(--bg-dark);
+    background: var(--gold-primary);
+    border-color: var(--gold-primary);
+}
+
+.raffle-app .btn:focus-visible,
+.raffle-app button:focus-visible,
+.raffle-app a:focus-visible,
+.raffle-app input:focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 3px;
+}
+
+.raffle-app .mobile-menu-btn {
+    display: none;
+    flex: 0 0 auto;
+    gap: 5px;
+    padding: 11px;
+    border-color: var(--border-color);
+}
+
+.raffle-app .mobile-menu-btn span {
+    display: block;
+    width: 19px;
+    height: 1px;
+    background: var(--gold-light);
+}
+
+.raffle-app .mobile-menu {
+    z-index: 2002;
+    background: var(--bg-card);
+}
+
+.raffle-app .mobile-menu-overlay {
+    z-index: 2001;
+}
+
+.raffle-app .mobile-menu-close {
+    z-index: 1;
+}
+
+.raffle-app .mobile-nav-links a {
+    font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+.raffle-app .mobile-menu-cta {
+    gap: 12px;
+}
+
+.raffle-app .hero {
+    position: relative;
+    min-height: 390px;
+    margin: 0;
+    padding: 76px 0 68px;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 88% 48%, rgba(184, 134, 11, 0.12), transparent 36%),
+        var(--bg-dark);
+    border: 0;
+}
+
+.raffle-app .hero::before {
+    top: -55%;
+    right: -24%;
+    width: 75%;
+    height: 175%;
+    background: radial-gradient(ellipse at center, rgba(184, 134, 11, 0.1) 0%, transparent 62%);
+}
+
+.raffle-app .hero-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    gap: clamp(36px, 7vw, 88px);
+}
+
+.raffle-app .hero-content {
+    max-width: 760px;
+}
+
+.raffle-app .hero-badge {
+    margin-bottom: 24px;
+    background: rgba(26, 24, 21, 0.82);
+}
+
+.raffle-app .hero-badge .dot {
+    background: var(--gold-light);
+}
+
+.raffle-app .hero-title {
+    margin: 0 0 18px;
+    color: var(--text-primary);
+    font-size: clamp(42px, 5.3vw, 68px);
+    font-weight: 400;
+    line-height: 1.05;
+}
+
+.raffle-app .hero-title .gold,
+.raffle-app .page-title .gold {
+    color: var(--gold-light);
+    font-style: italic;
+}
+
+.raffle-app .hero-desc {
+    max-width: 590px;
+    margin: 0 0 28px;
+    color: var(--text-secondary);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.raffle-app .hero-actions {
+    gap: 12px;
+    margin: 0;
+}
+
+.raffle-app .hero-visual {
+    display: flex;
+    justify-content: center;
+}
+
+.raffle-hero-card {
+    position: relative;
+    width: min(100%, 410px);
+    padding: 38px 36px;
+    background: linear-gradient(145deg, rgba(26, 24, 21, 0.96), rgba(20, 19, 17, 0.96));
+    border: 1px solid var(--border-color);
+}
+
+.raffle-hero-card::before,
+.raffle-panel::before {
+    position: absolute;
+    top: -1px;
+    right: 32px;
+    left: 32px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    content: "";
+}
+
+.raffle-hero-icon {
+    display: flex;
+    width: 72px;
+    height: 72px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 26px;
+    border: 1px solid var(--gold-dark);
+    color: var(--gold-light);
+}
+
+.raffle-hero-icon svg {
+    width: 34px;
+    height: 34px;
+}
+
+.raffle-eyebrow,
+.section-label,
+.stat-label,
+.form-label,
+.table-heading {
+    color: var(--gold-light);
+    font-family: "Libre Franklin", Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.raffle-hero-card h2 {
+    margin: 10px 0 8px;
+    font-size: 30px;
+}
+
+.raffle-hero-card p {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.raffle-hero-card .raffle-card-rule {
+    height: 1px;
+    margin: 24px 0 18px;
+    background: var(--border-color);
+}
+
+.raffle-hero-card .raffle-card-note {
+    color: var(--gold-light);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.raffle-app .main-content {
+    flex: 1;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 52px 24px 88px;
+}
+
+.raffle-section {
+    margin-top: 56px;
+}
+
+.raffle-section:first-child {
+    margin-top: 0;
+}
+
+.raffle-section-header {
+    margin-bottom: 24px;
+}
+
+.raffle-section-header .section-label {
+    margin-bottom: 10px;
+}
+
+.raffle-section-header h2,
+.raffle-form-card h2 {
+    margin-bottom: 8px;
+    font-size: clamp(28px, 3vw, 38px);
+}
+
+.raffle-section-header p,
+.raffle-form-intro {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.raffle-app .stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.raffle-app .stat-card {
+    min-height: 148px;
+    padding: 24px;
+    background: var(--bg-card);
+    border-color: var(--border-color);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.raffle-app .stat-card::before {
+    height: 2px;
+    background: var(--gold-primary);
+}
+
+.raffle-app .stat-card.stat-green::before,
+.raffle-app .stat-card.stat-amber::before,
+.raffle-app .stat-card.stat-purple::before {
+    background: var(--gold-primary);
+}
+
+.raffle-app .stat-label {
+    color: var(--text-muted);
+}
+
+.raffle-app .stat-value {
+    margin-top: 6px;
+    color: var(--text-primary);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 42px;
+    font-weight: 500;
+}
+
+.raffle-app .stat-desc {
+    color: var(--text-secondary);
+    font-size: 11px;
+}
+
+.raffle-app .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    color: var(--text-secondary);
+    background: var(--bg-dark);
+    font-family: "Libre Franklin", Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.raffle-app .badge-success {
+    border-color: rgba(74, 124, 89, 0.5);
+    color: #99c5a3;
+    background: rgba(74, 124, 89, 0.12);
+}
+
+.raffle-app .badge-danger {
+    border-color: rgba(139, 58, 58, 0.55);
+    color: #d99b91;
+    background: rgba(139, 58, 58, 0.14);
+}
+
+.raffle-app .badge-info {
+    border-color: rgba(184, 134, 11, 0.4);
+    color: var(--gold-light);
+    background: rgba(184, 134, 11, 0.1);
+}
+
+.raffle-app .status-box {
+    align-items: flex-start;
+    padding: 18px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-left: 2px solid var(--gold-primary);
+    border-radius: 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.raffle-app .status-box strong {
+    color: var(--text-primary);
+}
+
+.raffle-app .status-box.success {
+    border-left-color: var(--success);
+}
+
+.raffle-app .status-box.danger {
+    border-left-color: var(--danger);
+}
+
+.raffle-app .status-box.warning {
+    border-left-color: var(--gold-primary);
+}
+
+.raffle-app .grid-cards {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 24px;
+}
+
+.raffle-app .card {
+    padding: 26px;
+    background: var(--bg-card);
+    border-color: var(--border-color);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.raffle-app .card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--gold-dark);
+    box-shadow: none;
+    transform: translateY(-3px);
+}
+
+.raffle-app .card-title {
+    color: var(--text-primary);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 23px;
+    font-weight: 500;
+}
+
+.raffle-app .card-body {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.raffle-app .form-card,
+.raffle-app .contact-form,
+.raffle-app .ticket-card {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(24px, 5vw, 48px);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.raffle-app .raffle-login-card {
+    max-width: 540px;
+}
+
+.raffle-app .raffle-form-card h2 {
+    color: var(--text-primary);
+}
+
+.raffle-app .ticket-success-title {
+    margin-bottom: 8px;
+    color: var(--gold-light);
+    font-size: 32px;
+}
+
+.raffle-app .ticket-success-message {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+.raffle-app .raffle-form-intro {
+    margin-bottom: 28px;
+}
+
+.raffle-app .demo-credentials {
+    margin-top: 28px;
+    padding: 18px;
+    color: var(--text-secondary);
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+.raffle-app .demo-credentials strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--gold-light);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.raffle-app .demo-credentials code {
+    padding: 2px 5px;
+    color: var(--text-primary);
+    background: var(--bg-card);
+}
+
+.raffle-app .form-group {
+    margin-bottom: 20px;
+}
+
+.raffle-app .form-label {
+    margin-bottom: 9px;
+    color: var(--text-secondary);
+    font-size: 10px;
+}
+
+.raffle-app .form-label .required {
+    color: var(--gold-light);
+}
+
+.raffle-app .form-input,
+.raffle-app .form-select,
+.raffle-app .form-textarea {
+    min-height: 50px;
+    padding: 14px 16px;
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    color: var(--text-primary);
+    font-family: "Libre Franklin", Arial, sans-serif;
+    font-size: 14px;
+}
+
+.raffle-app .form-input:focus,
+.raffle-app .form-select:focus,
+.raffle-app .form-textarea:focus {
+    border-color: var(--gold-primary);
+    background-color: var(--bg-card-hover);
+    box-shadow: none;
+}
+
+.raffle-app .form-input::placeholder,
+.raffle-app .form-textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.raffle-app .form-input {
+    scroll-margin-top: 112px;
+}
+
+.raffle-app .form-input.is-invalid {
+    border-color: var(--danger);
+    background-color: var(--bg-dark);
+    box-shadow: 0 0 0 2px rgba(139, 58, 58, 0.2);
+}
+
+.raffle-app .field-error {
+    color: #d99b91;
+}
+
+.raffle-app .form-helper {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.raffle-app .btn-block {
+    width: 100%;
+    min-height: 52px;
+    margin-top: 8px;
+}
+
+.raffle-app .ticket-card {
+    border-top: 2px solid var(--gold-primary);
+}
+
+.raffle-app .ticket-header {
+    border-bottom-color: var(--border-color);
+}
+
+.raffle-app .ticket-badge {
+    padding: 7px 10px;
+    border-radius: 0;
+    color: var(--gold-light);
+    background: rgba(184, 134, 11, 0.12);
+    font-size: 10px;
+}
+
+.raffle-app .ticket-number,
+.raffle-app .winner-ticket-number {
+    color: var(--gold-light);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    letter-spacing: 0.08em;
+}
+
+.raffle-app .ticket-details {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+}
+
+.raffle-app .ticket-label {
+    color: var(--text-muted);
+}
+
+.raffle-app .ticket-value {
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+}
+
+.raffle-app .draw-action-panel,
+.raffle-app .raffle-panel {
+    position: relative;
+    padding: 30px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+}
+
+.raffle-app .draw-action-panel {
+    margin: 0 0 28px;
+}
+
+.raffle-app .draw-action-panel h2 {
+    color: var(--text-primary) !important;
+    font-size: 30px !important;
+}
+
+.raffle-app .draw-action-panel p {
+    color: var(--text-secondary) !important;
+    font-size: 13px !important;
+}
+
+.raffle-app .raffle-dashboard-summary {
+    max-width: 410px;
+    width: 100%;
+    padding: 34px;
+}
+
+.raffle-app .raffle-dashboard-summary .price-header {
+    margin-bottom: 24px;
+}
+
+.raffle-app .raffle-dashboard-summary .price-live {
+    color: var(--gold-light);
+}
+
+.raffle-app .raffle-dashboard-summary .price-live::before {
+    background: var(--gold-light);
+}
+
+.raffle-app .raffle-dashboard-summary .price-value {
+    color: var(--gold-light);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(48px, 5vw, 68px);
+}
+
+.raffle-app .raffle-dashboard-summary .raffle-summary-label {
+    color: var(--text-secondary);
+    font-size: 12px;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+
+.raffle-app .raffle-dashboard-summary .raffle-card-rule {
+    height: 1px;
+    margin: 24px 0 16px;
+    background: var(--border-color);
+}
+
+.raffle-app .raffle-dashboard-summary .raffle-card-note {
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.raffle-app .draw-btn {
+    min-height: 52px;
+    padding: 15px 26px;
+    border: 1px solid var(--gold-light);
+    border-radius: 0;
+    color: var(--bg-dark);
+    background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+    box-shadow: none;
+    font-family: "Libre Franklin", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+}
+
+.raffle-app .draw-btn:hover:not(:disabled) {
+    color: var(--bg-dark);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+    box-shadow: 0 8px 28px rgba(184, 134, 11, 0.22);
+}
+
+.raffle-app .draw-btn:disabled {
+    color: var(--text-muted);
+    background: var(--bg-card-hover);
+    border-color: var(--border-color);
+}
+
+.raffle-app .table-container {
+    margin-top: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.raffle-app .data-table {
+    min-width: 760px;
+    color: var(--text-primary);
+    font-family: "Libre Franklin", Arial, sans-serif;
+    font-size: 12px;
+}
+
+.raffle-app .data-table th {
+    padding: 15px 16px;
+    color: var(--gold-light);
+    background: #211e19;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.raffle-app .data-table td {
+    padding: 15px 16px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.raffle-app .data-table td strong {
+    color: var(--text-primary);
+}
+
+.raffle-app .data-table tbody tr:hover {
+    background: var(--bg-card-hover);
+}
+
+.raffle-app .empty-state {
+    padding: 38px 22px;
+    color: var(--text-secondary);
+    white-space: normal;
+}
+
+.raffle-app .winner-spotlight-card,
+.raffle-app .rolling-card {
+    position: relative;
+    padding: clamp(28px, 5vw, 52px);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-top: 2px solid var(--gold-primary);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.raffle-app .winner-spotlight-card h2 {
+    color: var(--text-primary);
+}
+
+.raffle-app .spotlight-badge,
+.raffle-app .rolling-badge {
+    padding: 8px 12px;
+    border: 1px solid rgba(184, 134, 11, 0.5);
+    border-radius: 0;
+    color: var(--gold-light);
+    background: rgba(184, 134, 11, 0.1);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+}
+
+.raffle-app .winner-ticket-banner {
+    min-width: min(300px, 100%);
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.raffle-app .winner-ticket-banner > span:first-child {
+    color: var(--text-secondary);
+}
+
+.raffle-app .rolling-subtitle {
+    color: var(--text-secondary);
+}
+
+.raffle-app .rolling-display-box {
+    color: var(--text-primary);
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.raffle-app .rolling-name {
+    color: var(--gold-light);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    text-shadow: none;
+}
+
+.raffle-app .rolling-progress-bar {
+    background: var(--border-color);
+    border-radius: 0;
+}
+
+.raffle-app .rolling-progress-fill {
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+    border-radius: 0;
+}
+
+.raffle-app .user-pill {
+    padding: 7px 12px;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    font-size: 11px;
+}
+
+.raffle-app .main-footer {
+    margin-top: 0;
+    padding: 25px 0;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    font-size: 11px;
+}
+
+.raffle-app .code-block {
+    color: var(--text-primary);
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+}
+
+@media (max-width: 1100px) {
+    .raffle-app .nav-links {
+        gap: 22px;
+    }
+
+    .raffle-app .nav-cta .btn {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .raffle-app .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .raffle-app .nav-links,
+    .raffle-app .nav-cta {
+        display: none;
+    }
+
+    .raffle-app .mobile-menu-btn {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    body.raffle-app {
+        padding-top: 68px;
+    }
+
+    .raffle-app .nav {
+        padding: 10px 0;
+    }
+
+    .raffle-app .nav-inner {
+        min-height: 46px;
+    }
+
+    .raffle-app .logo {
+        font-size: 19px;
+    }
+
+    .raffle-app .hero {
+        min-height: 0;
+        padding: 58px 0;
+    }
+
+    .raffle-app .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 34px;
+    }
+
+    .raffle-app .hero-visual {
+        display: none;
+    }
+
+    .raffle-app .hero-title {
+        font-size: clamp(40px, 11vw, 56px);
+    }
+
+    .raffle-app .hero-desc {
+        font-size: 14px;
+    }
+
+    .raffle-app .hero-actions {
+        align-items: stretch;
+    }
+
+    .raffle-app .hero-actions .btn {
+        width: auto;
+    }
+
+    .raffle-hero-card {
+        width: 100%;
+        max-width: 520px;
+        padding: 28px;
+    }
+
+    .raffle-app .main-content {
+        padding-top: 36px;
+        padding-bottom: 60px;
+    }
+
+    .raffle-section {
+        margin-top: 42px;
+    }
+
+    .raffle-app .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .raffle-app .stat-card {
+        min-height: 130px;
+        padding: 18px;
+    }
+
+    .raffle-app .draw-action-panel {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 24px;
+        text-align: left;
+    }
+
+    .raffle-app .draw-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .raffle-app .contact-form,
+    .raffle-app .form-card {
+        padding: 26px 20px;
+    }
+
+    .raffle-app .ticket-row {
+        gap: 14px;
+        align-items: flex-start;
+    }
+
+    .raffle-app .ticket-value {
+        text-align: right;
+    }
+
+    .raffle-app .data-table th,
+    .raffle-app .data-table td {
+        padding: 13px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .raffle-app .container,
+    .raffle-app .main-content {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .raffle-app .logo {
+        max-width: 250px;
+        font-size: 17px;
+        white-space: normal;
+    }
+
+    .raffle-app .hero-actions {
+        flex-direction: column;
+    }
+
+    .raffle-app .hero-actions .btn {
+        width: 100%;
+    }
+
+    .raffle-app .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .raffle-app .stat-card {
+        min-height: auto;
+    }
+
+    .raffle-app .ticket-card > div:last-child {
+        flex-direction: column;
+    }
+
+    .raffle-app .ticket-card > div:last-child .btn {
+        width: 100%;
+    }
+
+    .raffle-app .mobile-menu {
+        max-width: 100%;
+        padding-right: 28px;
+        padding-left: 28px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .raffle-app *,
+    .raffle-app *::before,
+    .raffle-app *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

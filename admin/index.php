@@ -65,45 +65,83 @@ if ($db_connected && $pdo) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard | Customer Appreciation Month Raffle</title>
-    <!-- Vanilla CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../templatemo_610_aurum_gold/templatemo-aurum-gold.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/raffle-theme.css">
 </head>
-<body>
+<body class="raffle-app">
 
-    <!-- Header Navigation -->
-    <header class="main-header">
-        <div class="container header-content">
-            <a href="index.php" class="brand-title">
-                🎁 Customer Appreciation Month
-                <span class="brand-badge">Admin Dashboard</span>
-            </a>
-            <div style="display: flex; align-items: center; gap: 1rem;">
-                <span class="user-pill">
-                    👤 Logged in as: <strong><?php echo htmlspecialchars($_SESSION['admin_username'] ?? 'admin'); ?></strong>
-                </span>
-                <a href="../index.php" class="btn btn-secondary btn-sm" target="_blank">View Public Site</a>
-                <a href="logout.php" class="btn btn-secondary btn-sm" style="color: var(--danger-color); font-weight: 600;">
-                    Logout
-                </a>
+    <nav class="nav" id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.php" class="logo">Customer <span>Appreciation</span></a>
+                <ul class="nav-links">
+                    <li><a href="#dashboard" class="active" aria-current="page">Dashboard</a></li>
+                    <li><a href="#winner-history">Winner History</a></li>
+                </ul>
+                <div class="nav-cta">
+                    <span class="user-pill"><?php echo htmlspecialchars($_SESSION['admin_username'] ?? 'admin'); ?></span>
+                    <a href="../index.php" class="btn btn-outline">Public Site</a>
+                    <a href="logout.php" class="btn btn-primary">Log Out</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
-    </header>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="#dashboard" class="active" aria-current="page">Dashboard</a></li>
+            <li><a href="#winner-history">Winner History</a></li>
+        </ul>
+        <div class="mobile-menu-cta">
+            <a href="../index.php" class="btn btn-outline">Public Site</a>
+            <a href="logout.php" class="btn btn-primary">Log Out</a>
+        </div>
+    </aside>
 
-    <!-- Hero Banner -->
-    <section class="hero" style="padding: 2.25rem 0;">
+    <section class="hero">
         <div class="container">
-            <h1 style="font-size: 2rem;">Raffle Management Dashboard</h1>
-            <p>Monitor participant entries, review draw eligibility, and conduct the Customer Appreciation Month raffle.</p>
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge"><span class="dot"></span>Administrator dashboard</div>
+                    <h1 class="hero-title">A fair draw.<br><span class="gold">Every time.</span></h1>
+                    <p class="hero-desc">Review the entry pool, select a winner and keep the Customer Appreciation Month raffle running smoothly.</p>
+                </div>
+                <div class="hero-visual">
+                    <div class="price-card raffle-dashboard-summary">
+                        <div class="price-header">
+                            <span class="price-label">Current draw pool</span>
+                            <span class="price-live" id="hero-draw-pool-status"><?php echo $eligibleEntries > 0 ? 'Ready' : 'Pool empty'; ?></span>
+                        </div>
+                        <div class="price-main">
+                            <div class="price-value" id="stat-hero-eligible"><?php echo number_format($eligibleEntries); ?></div>
+                            <div class="raffle-summary-label">Eligible raffle entries</div>
+                        </div>
+                        <div class="raffle-card-rule"></div>
+                        <div class="raffle-card-note">Each eligible entry has one chance to win</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Main Container -->
-    <main class="main-content container">
+    <main class="main-content" id="dashboard">
 
         <!-- Database Error Alert if applicable -->
         <?php if (!empty($dbFetchError)): ?>
             <div class="status-box danger" style="margin-bottom: 1.5rem;">
-                <span style="font-size: 1.5rem;">⚠️</span>
+                <span style="font-size: 1.5rem;"></span>
                 <div>
                     <strong>System Notice:</strong>
                     <p><?php echo htmlspecialchars($dbFetchError); ?></p>
@@ -116,21 +154,21 @@ if ($db_connected && $pdo) {
             <!-- Total Entries Card -->
             <div class="stat-card">
                 <span class="stat-label">Total Entries</span>
-                <span class="stat-value"><?php echo number_format($totalEntries); ?></span>
+                <span class="stat-value" id="stat-total-entries"><?php echo number_format($totalEntries); ?></span>
                 <span class="stat-desc">Total raffle tickets created</span>
             </div>
 
             <!-- Eligible Entries Card -->
             <div class="stat-card stat-green">
                 <span class="stat-label">Eligible Entries</span>
-                <span class="stat-value"><?php echo number_format($eligibleEntries); ?></span>
+                <span class="stat-value" id="stat-eligible-entries"><?php echo number_format($eligibleEntries); ?></span>
                 <span class="stat-desc">Valid & ready for draw</span>
             </div>
 
             <!-- Winners Selected Card -->
             <div class="stat-card stat-amber">
                 <span class="stat-label">Winners Selected</span>
-                <span class="stat-value"><?php echo number_format($totalWinners); ?></span>
+                <span class="stat-value" id="stat-total-winners"><?php echo number_format($totalWinners); ?></span>
                 <span class="stat-desc">Awarded raffle winners</span>
             </div>
 
@@ -139,52 +177,68 @@ if ($db_connected && $pdo) {
                 <span class="stat-label">Draw Pool Status</span>
                 <span class="stat-value" style="font-size: 1.5rem; padding-top: 0.35rem;">
                     <?php if ($eligibleEntries > 0): ?>
-                        <span class="badge badge-success">Ready (<?php echo $eligibleEntries; ?>)</span>
+                        <span class="badge badge-success" id="draw-pool-status">Ready (<?php echo $eligibleEntries; ?>)</span>
                     <?php else: ?>
-                        <span class="badge badge-danger">Empty Pool</span>
+                        <span class="badge badge-danger" id="draw-pool-status">Empty Pool</span>
                     <?php endif; ?>
                 </span>
                 <span class="stat-desc">Eligible participants status</span>
             </div>
         </section>
 
-        <!-- Live Raffle Draw Action Panel -->
+        <!-- Raffle Draw Action Panel -->
         <section class="draw-action-panel">
             <div>
-                <h2 style="font-size: 1.35rem; color: #1e3a8a; margin-bottom: 0.25rem;">
-                    🎲 Live Raffle Draw Stage
+                <h2 style="font-size: 1.35rem; margin-bottom: 0.25rem;">
+                     Live Raffle Draw Stage
                 </h2>
                 <p style="color: var(--text-muted); font-size: 0.95rem;">
-                    Ready to pick a winner? Currently <strong><?php echo $eligibleEntries; ?></strong> eligible entry tickets are in the drawing pool.
+                    Ready to pick a winner? Currently <strong id="draw-eligible-count"><?php echo $eligibleEntries; ?></strong> eligible entry tickets are in the drawing pool.
                 </p>
             </div>
             <div>
-                <!-- Draw Winner Button (Demonstration Phase: Triggers preview notification) -->
-                <button type="button" id="btn-draw-winner" class="draw-btn">
-                    ✨ DRAW WINNER
+                <button type="button" id="btn-draw-winner" class="draw-btn" <?php echo $eligibleEntries === 0 ? 'disabled' : ''; ?>>
+                    DRAW WINNER
                 </button>
             </div>
         </section>
 
-        <!-- Temporary Feature Notice (Hidden by default, shown when DRAW WINNER clicked) -->
-        <div id="draw-preview-box" class="status-box warning" style="display: none; margin-bottom: 2rem;">
-            <span style="font-size: 1.5rem;">🎉</span>
-            <div>
-                <strong>Winner Selection Engine (Phase 6 Preview):</strong>
-                <p style="margin-top: 0.25rem;">
-                    The <strong>"DRAW WINNER"</strong> action button is connected and ready. The automated randomized selection algorithm, animation stage, and database status update will be implemented in the next phase!
-                </p>
-                <p style="margin-top: 0.35rem; font-size: 0.85rem;">
-                    Current pool: <strong><?php echo $eligibleEntries; ?></strong> eligible ticket(s) waiting.
-                </p>
+        <section id="draw-animation" class="rolling-stage" style="display: none;" aria-live="polite" aria-atomic="true">
+            <div class="rolling-card">
+                <span class="rolling-badge" id="draw-animation-badge">Drawing in progress</span>
+                <p class="rolling-subtitle" id="draw-animation-message">The server is choosing an eligible entry.</p>
+                <div class="rolling-display-box">
+                    <span class="rolling-icon" id="draw-animation-icon" aria-hidden="true">🎟️</span>
+                    <span class="rolling-name" id="draw-animation-name">Selecting winner...</span>
+                </div>
+                <div class="rolling-progress-bar" role="progressbar" aria-label="Winner reveal progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                    <div class="rolling-progress-fill" id="draw-progress-fill"></div>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <section id="draw-winner-result" class="winner-spotlight-card" style="display: none;" aria-live="polite">
+            <span class="spotlight-badge"> Winner selected</span>
+            <h2 style="margin-top: 1rem;">Congratulations!</h2>
+            <div class="winner-ticket-banner">
+                <span style="font-size: 0.85rem; opacity: 0.9;">WINNING TICKET</span>
+                <span class="winner-ticket-number" id="draw-winner-ticket"></span>
+            </div>
+            <p id="draw-winner-name" style="font-size: 1.5rem; font-weight: 700;"></p>
+            <p id="draw-winner-details" style="color: var(--text-muted); margin-top: 0.25rem;"></p>
+        </section>
+
+        <div id="draw-error" class="status-box danger" style="display: none;" role="alert"></div>
 
         <!-- Previous Winners Table Section -->
-        <section>
+        <section id="winner-history" class="raffle-section">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                <h2>🏆 Previous Winners</h2>
-                <span class="badge badge-info"><?php echo count($winnersList); ?> Recorded Winner(s)</span>
+                <div class="raffle-section-header">
+                    <div class="section-label">Draw archive</div>
+                    <h2>Previous winners</h2>
+                    <p>Every selected winner and ticket, recorded in one place.</p>
+                </div>
+                <span class="badge badge-info" id="recorded-winner-count"><?php echo count($winnersList); ?> Recorded Winner(s)</span>
             </div>
 
             <div class="table-container">
@@ -199,7 +253,7 @@ if ($db_connected && $pdo) {
                             <th>Draw Timestamp</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="winners-table-body">
                         <?php if (!empty($winnersList)): ?>
                             <?php foreach ($winnersList as $index => $winner): ?>
                                 <tr>

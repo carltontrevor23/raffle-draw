@@ -53,42 +53,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login | Customer Appreciation Month Raffle</title>
-    <!-- Vanilla CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../templatemo_610_aurum_gold/templatemo-aurum-gold.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/raffle-theme.css">
 </head>
-<body>
+<body class="raffle-app">
 
-    <!-- Header Navigation -->
-    <header class="main-header">
-        <div class="container header-content">
-            <a href="../index.php" class="brand-title">
-                🎁 Customer Appreciation Month
-                <span class="brand-badge">Admin Portal</span>
-            </a>
-            <nav>
+    <nav class="nav" id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="../index.php" class="logo">Customer <span>Appreciation</span></a>
                 <ul class="nav-links">
                     <li><a href="../index.php">Public Site</a></li>
-                    <li><a href="../register.php">Customer Registration</a></li>
-                    <li><a href="login.php" class="active">Admin Login</a></li>
+                    <li><a href="../register.php">Raffle Entry</a></li>
+                    <li><a href="login.php" class="active" aria-current="page">Admin Login</a></li>
                 </ul>
-            </nav>
+                <div class="nav-cta">
+                    <a href="../register.php" class="btn btn-outline">Customer Entry</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
-    </header>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="../index.php">Public Site</a></li>
+            <li><a href="../register.php">Raffle Entry</a></li>
+            <li><a href="login.php" class="active" aria-current="page">Admin Login</a></li>
+        </ul>
+        <div class="mobile-menu-cta">
+            <a href="../register.php" class="btn btn-outline">Customer Entry</a>
+        </div>
+    </aside>
 
-    <!-- Hero Banner -->
     <section class="hero">
         <div class="container">
-            <h1>Staff & Admin Access</h1>
-            <p>Sign in to monitor entries, manage raffle settings, and run the lucky draw.</p>
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge"><span class="dot"></span>Administrator access</div>
+                    <h1 class="hero-title">The draw,<br><span class="gold">in good hands.</span></h1>
+                    <p class="hero-desc">Sign in to review eligible entries, conduct the raffle and keep track of every selected winner.</p>
+                </div>
+                <div class="hero-visual" aria-hidden="true">
+                    <div class="raffle-hero-card">
+                        <div class="raffle-hero-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                                <path d="M12 3 4.5 6v5.2c0 4.8 3.2 8.1 7.5 9.8 4.3-1.7 7.5-5 7.5-9.8V6z"/>
+                                <path d="m9 12 2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <span class="raffle-eyebrow">Administrator portal</span>
+                        <h2>Fair draws.<br>Clear records.</h2>
+                        <p>Access is reserved for the raffle administrator.</p>
+                        <div class="raffle-card-rule"></div>
+                        <div class="raffle-card-note">Secure dashboard access</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Main Container -->
-    <main class="main-content container">
+    <main class="main-content">
 
-        <div class="form-card">
-            <h2 style="font-size: 1.4rem; margin-bottom: 0.5rem; text-align: center;">Administrator Sign-in</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-bottom: 1.5rem;">
+        <div class="contact-form form-card raffle-login-card">
+            <div class="section-label">Admin portal</div>
+            <h2>Administrator sign-in</h2>
+            <p class="raffle-form-intro">
                 Enter administrator credentials to access the raffle dashboard.
             </p>
 
@@ -103,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- Error Notice -->
             <?php if (!empty($error)): ?>
                 <div class="status-box danger" style="margin-bottom: 1.25rem;">
-                    <span>⚠️</span>
+                    <span></span>
                     <div><strong>Login Error:</strong> <?php echo htmlspecialchars($error); ?></div>
                 </div>
             <?php endif; ?>
@@ -138,14 +179,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div style="margin-top: 1.75rem;">
                     <button type="submit" class="btn btn-primary btn-block">
-                        🔐 Sign In to Dashboard
+                        Sign In to Dashboard
                     </button>
                 </div>
             </form>
 
             <!-- Demonstration Credentials Helper Box -->
-            <div style="margin-top: 1.75rem; background-color: var(--bg-page); border: 1px dashed var(--border-color); border-radius: var(--border-radius); padding: 1rem; font-size: 0.88rem; color: var(--text-muted);">
-                <strong style="color: var(--text-main); display: block; margin-bottom: 0.25rem;">🔑 Demonstration Credentials:</strong>
+            <div class="demo-credentials">
+                <strong>Demonstration credentials</strong>
                 <div>Username: <code>admin</code></div>
                 <div>Password: <code>admin123</code></div>
             </div>
@@ -160,5 +201,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </footer>
 
+    <script src="../js/main.js"></script>
 </body>
 </html>

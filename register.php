@@ -104,47 +104,86 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register for Raffle | Customer Appreciation Month</title>
-    <!-- Vanilla CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="templatemo_610_aurum_gold/templatemo-aurum-gold.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/raffle-theme.css">
 </head>
-<body>
+<body class="raffle-app">
 
-    <!-- Header Navigation -->
-    <header class="main-header">
-        <div class="container header-content">
-            <a href="index.php" class="brand-title">
-                🎁 Customer Appreciation Month
-                <span class="brand-badge">Raffle Draw</span>
-            </a>
-            <nav>
+    <nav class="nav" id="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="index.php" class="logo">Customer <span>Appreciation</span></a>
                 <ul class="nav-links">
                     <li><a href="index.php">Overview</a></li>
-                    <li><a href="register.php" class="active">Register for Raffle</a></li>
+                    <li><a href="register.php" class="active" aria-current="page">Raffle Entry</a></li>
                 </ul>
-            </nav>
+                <div class="nav-cta">
+                    <a href="admin/login.php" class="btn btn-outline">Admin Login</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
         </div>
-    </header>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <ul class="mobile-nav-links">
+            <li><a href="index.php">Overview</a></li>
+            <li><a href="register.php" class="active" aria-current="page">Raffle Entry</a></li>
+        </ul>
+        <div class="mobile-menu-cta">
+            <a href="admin/login.php" class="btn btn-outline">Admin Login</a>
+        </div>
+    </aside>
 
-    <!-- Hero Banner -->
     <section class="hero">
         <div class="container">
-            <h1>Customer Raffle Entry</h1>
-            <p>Celebrate Customer Appreciation Month with us! Register below to get your official raffle entry ticket.</p>
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge"><span class="dot"></span>Customer Appreciation Month</div>
+                    <h1 class="hero-title">Your chance<br>to <span class="gold">celebrate.</span></h1>
+                    <p class="hero-desc">Register your details to receive a unique ticket in the Customer Appreciation Month raffle. Each customer is eligible for one entry.</p>
+                </div>
+                <div class="hero-visual" aria-hidden="true">
+                    <div class="raffle-hero-card">
+                        <div class="raffle-hero-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                                <path d="M4 7.5A2.5 2.5 0 0 0 6.5 5h11A2.5 2.5 0 0 0 20 7.5v2a2.5 2.5 0 0 0 0 5v2a2.5 2.5 0 0 0-2.5 2.5h-11A2.5 2.5 0 0 0 4 16.5v-2a2.5 2.5 0 0 0 0-5z"/>
+                                <path d="M12 8v1m0 3v1m0 3v1"/>
+                            </svg>
+                        </div>
+                        <span class="raffle-eyebrow">One customer · One entry</span>
+                        <h2>A ticket made<br>just for you.</h2>
+                        <p>Your ticket number will appear as soon as registration is complete.</p>
+                        <div class="raffle-card-rule"></div>
+                        <div class="raffle-card-note">Keep it close</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Main Container -->
-    <main class="main-content container">
+    <main class="main-content">
 
         <?php if ($registrationSuccess && $entryInfo): ?>
             <!-- Success Confirmation & Ticket Card -->
             <div class="ticket-card">
                 <div class="ticket-header">
                     <span class="ticket-badge">Official Raffle Entry</span>
-                    <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--success-color);">
-                        🎉 Registration Successful!
+                    <h2 class="ticket-success-title">
+                        Registration Successful!
                     </h2>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">
+                    <p class="ticket-success-message">
                         You have been officially entered into the Customer Appreciation Month Raffle Draw.
                     </p>
                     <div style="margin-top: 1rem;">
@@ -189,16 +228,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php else: ?>
 
             <!-- Registration Form Card -->
-            <div class="form-card">
-                <h2 style="font-size: 1.4rem; margin-bottom: 0.5rem; text-align: center;">Enter the Raffle</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem; text-align: center; margin-bottom: 1.5rem;">
+            <div class="contact-form form-card raffle-form-card">
+                <div class="section-label">Your entry</div>
+                <h2>Enter the raffle</h2>
+                <p class="raffle-form-intro">
                     Please fill out your details below. Each customer is eligible for one raffle entry.
                 </p>
 
                 <!-- Server-side Error Messages Alert -->
                 <?php if (!empty($errors)): ?>
                     <div class="status-box danger" style="margin-bottom: 1.25rem;">
-                        <span style="font-size: 1.3rem;">⚠️</span>
+                        <span style="font-size: 1.3rem;"></span>
                         <div>
                             <strong>Please correct the following:</strong>
                             <ul style="margin-left: 1.25rem; margin-top: 0.25rem; font-size: 0.9rem;">
@@ -268,7 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <!-- Submit Button -->
                     <div style="margin-top: 1.75rem;">
                         <button type="submit" id="btn-submit" class="btn btn-primary btn-block">
-                            🎟️ Register & Get Raffle Ticket
+                             Register & Get Raffle Ticket
                         </button>
                     </div>
 

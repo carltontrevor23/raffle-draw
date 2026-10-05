@@ -119,10 +119,11 @@ try {
     if ($pdo->inTransaction()) {
         $pdo->rollBack();
     }
+    error_log('Raffle draw database error: ' . $e->getMessage());
     http_response_code(500);
     echo json_encode([
         'success' => false,
-        'message' => 'Database error during draw execution: ' . $e->getMessage()
+        'message' => 'The draw could not be completed because of a database error. Please check the server log.'
     ]);
     exit;
 }

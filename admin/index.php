@@ -1,18 +1,14 @@
 <?php
-/**
- * Customer Appreciation Month Raffle Draw System
- * Admin Dashboard (Phase 5)
- */
 
 session_start();
 
-// 1. Session Authentication Guard
+// Session Authentication Guard
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     header('Location: login.php');
     exit;
 }
 
-// 2. Database Connection
+// Database Connection
 require_once __DIR__ . '/../config/db.php';
 
 $totalEntries    = 0;

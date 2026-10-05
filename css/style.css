@@ -679,9 +679,6 @@ h2 {
     display: block;
 }
 
-/* ==========================================================
-   Rolling Winner Animation Stage (Phase 7)
-   ========================================================== */
 .rolling-stage {
     margin-bottom: 2.25rem;
     animation: popReveal 0.3s ease-out;

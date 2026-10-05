@@ -1,8 +1,6 @@
 <?php
 /**
  * Database Configuration & PDO Connection
- * Customer Appreciation Month Raffle Draw System
- * 
  * Default credentials configured for standard local development (XAMPP).
  */
 

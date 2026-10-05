@@ -1,12 +1,6 @@
 <?php
-/**
- * Customer Appreciation Month Raffle Draw System
- * Main Entry Point
- * 
- * Phase 1: Project Setup & System Verification
- */
 
-// Include MySQL Database Configuration
+// MySQL Database Configuration
 require_once __DIR__ . '/config/db.php';
 ?>
 <!DOCTYPE html>

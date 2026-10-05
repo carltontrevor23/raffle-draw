@@ -1,8 +1,4 @@
 <?php
-/**
- * Customer Appreciation Month Raffle Draw System
- * Customer Registration Page (Phase 3)
- */
 
 require_once __DIR__ . '/config/db.php';
 
@@ -52,15 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($existingCustomer) {
                     $errors[] = 'The email address (' . htmlspecialchars($email) . ') has already been registered for this raffle!';
                 } else {
-                    // Use a transaction to ensure both customer and entry are saved together
+                    // Transaction to ensure both customer and entry are saved together
                     $pdo->beginTransaction();
 
-                    // 1. Insert customer record
+                    // Insert customer record
                     $insertCustomer = $pdo->prepare('INSERT INTO customers (name, phone, email) VALUES (?, ?, ?)');
                     $insertCustomer->execute([$name, $phone, $email]);
                     $customerId = (int) $pdo->lastInsertId();
 
-                    // 2. Create the raffle entry
+                    // Create the raffle entry
                     $insertEntry = $pdo->prepare('INSERT INTO entries (customer_id, entry_status) VALUES (?, ?)');
                     $insertEntry->execute([$customerId, 'valid']);
                     $entryId = (int) $pdo->lastInsertId();

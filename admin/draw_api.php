@@ -1,18 +1,10 @@
 <?php
-/**
- * Customer Appreciation Month Raffle Draw System
- * Backend Draw API (Phase 7: Asynchronous Draw Execution)
- * 
- * Exclusively responsible for authoritatively determining the winner in PHP/MySQL.
- * Returns the drawn winner and updated stats as JSON.
- */
 
 session_start();
 
-// Ensure output is JSON
 header('Content-Type: application/json; charset=utf-8');
 
-// 1. Session Authentication Guard
+// Session Authentication Guard
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
     http_response_code(401);
     echo json_encode([
@@ -22,7 +14,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     exit;
 }
 
-// 2. Only allow POST requests
+// Only allow POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode([
@@ -32,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-// 3. Database Connection
+// Database Connection
 require_once __DIR__ . '/../config/db.php';
 
 if (!$db_connected || !$pdo) {
@@ -45,8 +37,7 @@ if (!$db_connected || !$pdo) {
 }
 
 try {
-    // 4. Retrieve ONE random eligible entry from MySQL (ORDER BY RAND() LIMIT 1)
-    // Only entries with entry_status = 'valid' are eligible
+    //Retrieve ONE random eligible entry from MySQL. Only entries with entry_status = 'valid' are eligible
     $selectStmt = $pdo->prepare("
         SELECT 
             e.id AS entry_id, 
@@ -72,21 +63,21 @@ try {
         exit;
     }
 
-    // 5. Atomic Transaction: Record winner & mark entry status
+    // Record winner & mark entry status
     $pdo->beginTransaction();
 
-    // A. Record winner in winners table
+    // Record winner in winners table
     $insertWinnerStmt = $pdo->prepare('INSERT INTO winners (entry_id, draw_date) VALUES (?, NOW())');
     $insertWinnerStmt->execute([$selectedEntry['entry_id']]);
     $winnerId = (int) $pdo->lastInsertId();
 
-    // B. Update entry_status to 'won' so this entry cannot be selected again
+    // Update entry_status to 'won' so this entry cannot be selected again
     $updateEntryStmt = $pdo->prepare("UPDATE entries SET entry_status = 'won' WHERE id = ?");
     $updateEntryStmt->execute([$selectedEntry['entry_id']]);
 
     $pdo->commit();
 
-    // 6. Query updated counts
+    // Query updated counts
     $totalEntries    = (int) $pdo->query('SELECT COUNT(*) FROM entries')->fetchColumn();
     $eligibleEntries = (int) $pdo->query("SELECT COUNT(*) FROM entries WHERE entry_status = 'valid'")->fetchColumn();
     $totalWinners    = (int) $pdo->query('SELECT COUNT(*) FROM winners')->fetchColumn();
@@ -94,7 +85,7 @@ try {
     $ticketCode = 'CAM-' . str_pad($selectedEntry['entry_id'], 5, '0', STR_PAD_LEFT);
     $formattedDate = date('F j, Y - g:i A');
 
-    // 7. Return authoritatively determined winner to the frontend
+    // Return authoritatively determined winner to the frontend
     echo json_encode([
         'success' => true,
         'winner' => [

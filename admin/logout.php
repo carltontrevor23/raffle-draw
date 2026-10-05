@@ -1,7 +1,7 @@
 <?php
 /**
  * Customer Appreciation Month Raffle Draw System
- * Admin Authentication - Logout Handler (Phase 5)
+ * Admin Authentication - Logout Handler 
  */
 
 session_start();

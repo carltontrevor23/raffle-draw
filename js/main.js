@@ -17,8 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (mobileMenuButton && mobileMenu && mobileMenuOverlay && mobileMenuClose) {
+        // Guarantee hidden on page load
+        mobileMenu.style.display = 'none';
+        mobileMenuOverlay.style.display = 'none';
+
         const mobileMenuLinks = mobileMenu.querySelectorAll('a');
         const setMobileMenuOpen = (isOpen) => {
+            mobileMenu.style.display = isOpen ? 'flex' : 'none';
+            mobileMenuOverlay.style.display = isOpen ? 'block' : 'none';
             mobileMenu.classList.toggle('open', isOpen);
             mobileMenuOverlay.classList.toggle('open', isOpen);
             mobileMenuButton.classList.toggle('active', isOpen);

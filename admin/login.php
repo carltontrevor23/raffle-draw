@@ -53,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/raffle-theme.css">
+    <link rel="stylesheet" href="../css/style.css?v=2.1">
+    <link rel="stylesheet" href="../css/raffle-theme.css?v=2.1">
 </head>
 <body class="raffle-app">
 
@@ -74,9 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <ul class="nav-links">
                     <li><a href="../index.php">Public Site</a></li>
                     <li><a href="../register.php">Raffle Entry</a></li>
+                    <li><a href="../raffle.php">Spin Wheel</a></li>
                     <li><a href="login.php" class="active" aria-current="page">Admin Login</a></li>
                 </ul>
                 <div class="nav-cta">
+                    <a href="../raffle.php" class="btn btn-primary" style="padding: 7px 14px; font-size: 11px;">🎡 Spin Wheel</a>
                     <a href="../register.php" class="btn btn-outline">Customer Entry</a>
                 </div>
                 <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -85,8 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </nav>
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" style="display: none;"></div>
+    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true" style="display: none;">
         <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close menu">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>

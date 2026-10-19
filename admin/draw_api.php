@@ -66,9 +66,17 @@ try {
     // Record winner & mark entry status
     $pdo->beginTransaction();
 
-    // Record winner in winners table
-    $insertWinnerStmt = $pdo->prepare('INSERT INTO winners (entry_id, draw_date) VALUES (?, NOW())');
-    $insertWinnerStmt->execute([$selectedEntry['entry_id']]);
+    // Select a prize for the admin draw from configured active winning prizes
+    $prizeStmt = $pdo->query("SELECT id, name FROM prizes WHERE is_win = 1 ORDER BY RAND() LIMIT 1");
+    $prize = $prizeStmt->fetch();
+    $prizeId = $prize ? (int)$prize['id'] : 5;
+    $prizeName = $prize ? $prize['name'] : 'Customer Appreciation Prize';
+
+    $claimCode = 'CLM-' . strtoupper(bin2hex(random_bytes(2))) . '-' . strtoupper(bin2hex(random_bytes(2)));
+
+    // Record winner in winners table with prize and claim information
+    $insertWinnerStmt = $pdo->prepare('INSERT INTO winners (entry_id, customer_id, prize_id, claim_code, claim_status, email_status, draw_date) VALUES (?, ?, ?, ?, "unclaimed", "pending", NOW())');
+    $insertWinnerStmt->execute([$selectedEntry['entry_id'], $selectedEntry['customer_id'], $prizeId, $claimCode]);
     $winnerId = (int) $pdo->lastInsertId();
 
     // Update entry_status to 'won' so this entry cannot be selected again
@@ -93,6 +101,8 @@ try {
             'entry_id'    => (int) $selectedEntry['entry_id'],
             'ticket_code' => $ticketCode,
             'name'        => $selectedEntry['customer_name'],
+            'prize_name'  => $prizeName,
+            'claim_code'  => $claimCode,
             'phone'       => $selectedEntry['customer_phone'],
             'email'       => $selectedEntry['customer_email'],
             'draw_date'   => $formattedDate,

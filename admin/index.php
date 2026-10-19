@@ -32,18 +32,23 @@ if ($db_connected && $pdo) {
         $stmt = $pdo->query('SELECT COUNT(*) FROM winners');
         $totalWinners = (int) $stmt->fetchColumn();
 
-        // Previous winners list with customer details
+        // Previous winners list with customer and prize details
         $stmt = $pdo->query('
             SELECT 
                 w.id AS winner_id,
                 w.draw_date,
+                w.claim_code,
+                w.claim_status,
+                w.email_status,
                 e.id AS entry_id,
                 c.name AS customer_name,
                 c.phone AS customer_phone,
-                c.email AS customer_email
+                c.email AS customer_email,
+                COALESCE(p.name, "Appreciation Prize") AS prize_name,
             FROM winners w
             INNER JOIN entries e ON w.entry_id = e.id
             INNER JOIN customers c ON e.customer_id = c.id
+            LEFT JOIN prizes p ON w.prize_id = p.id
             ORDER BY w.draw_date DESC
         ');
         $winnersList = $stmt->fetchAll();
@@ -64,8 +69,8 @@ if ($db_connected && $pdo) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/raffle-theme.css">
+    <link rel="stylesheet" href="../css/style.css?v=2.1">
+    <link rel="stylesheet" href="../css/raffle-theme.css?v=2.1">
 </head>
 <body class="raffle-app">
 
@@ -85,9 +90,11 @@ if ($db_connected && $pdo) {
                 <ul class="nav-links">
                     <li><a href="#dashboard" class="active" aria-current="page">Dashboard</a></li>
                     <li><a href="#winner-history">Winner History</a></li>
+                    <li><a href="../raffle.php" target="_blank">Customer Wheel ↗</a></li>
                 </ul>
                 <div class="nav-cta">
                     <span class="user-pill"><?php echo htmlspecialchars($_SESSION['admin_username'] ?? 'admin'); ?></span>
+                    <a href="../raffle.php" class="btn btn-outline" target="_blank">🎡 Test Wheel</a>
                     <a href="../index.php" class="btn btn-outline">Public Site</a>
                     <a href="logout.php" class="btn btn-primary">Log Out</a>
                 </div>
@@ -97,8 +104,8 @@ if ($db_connected && $pdo) {
             </div>
         </div>
     </nav>
-    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" style="display: none;"></div>
+    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true" style="display: none;">
         <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close menu">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
@@ -254,11 +261,12 @@ if ($db_connected && $pdo) {
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th style="width: 80px;">Draw #</th>
+                            <th style="width: 70px;">Draw #</th>
                             <th>Ticket Code</th>
                             <th>Winner Name</th>
-                            <th>Phone Number</th>
-                            <th>Email Address</th>
+                            <th>Prize Won</th>
+                            <th>Claim Code</th>
+                            <th>Email Status</th>
                             <th>Draw Timestamp</th>
                         </tr>
                     </thead>
@@ -272,19 +280,39 @@ if ($db_connected && $pdo) {
                                             CAM-<?php echo str_pad((int) $winner['entry_id'], 5, '0', STR_PAD_LEFT); ?>
                                         </span>
                                     </td>
-                                    <td><strong><?php echo htmlspecialchars($winner['customer_name']); ?></strong></td>
-                                    <td><?php echo htmlspecialchars($winner['customer_phone']); ?></td>
-                                    <td><?php echo htmlspecialchars($winner['customer_email']); ?></td>
+                                    <td>
+                                        <strong><?php echo htmlspecialchars($winner['customer_name']); ?></strong><br>
+                                        <small style="color: var(--text-muted);"><?php echo htmlspecialchars($winner['customer_phone']); ?></small>
+                                    </td>
+                                    <td>
+                                        <span style="color: var(--gold-light); font-weight: 600;">
+                                            <?php echo htmlspecialchars($winner['prize_icon'] . ' ' . $winner['prize_name']); ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <code style="font-size: 11px; background: rgba(0,0,0,0.4); padding: 3px 6px; border-radius: 4px; border: 1px dashed var(--border-color); color: #f5e6a8;">
+                                            <?php echo htmlspecialchars($winner['claim_code'] ?: '—'); ?>
+                                        </code>
+                                    </td>
+                                    <td>
+                                        <?php if ($winner['email_status'] === 'sent'): ?>
+                                            <span class="badge badge-success">Sent</span>
+                                        <?php elseif ($winner['email_status'] === 'failed'): ?>
+                                            <span class="badge badge-danger" title="SMTP unconfigured locally">Failed</span>
+                                        <?php else: ?>
+                                            <span class="badge badge-secondary"><?php echo htmlspecialchars($winner['email_status'] ?: 'Pending'); ?></span>
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?php echo htmlspecialchars(date('M j, Y - g:i A', strtotime($winner['draw_date']))); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="empty-state">
+                                <td colspan="7" class="empty-state">
                                     <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎟️</div>
                                     <p><strong>No winners have been drawn yet.</strong></p>
                                     <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">
-                                        Once winners are selected in the raffle draw stage, their details and draw timestamps will appear here.
+                                        Once winners are selected in the raffle draw stage or customer wheel, their details will appear here.
                                     </p>
                                 </td>
                             </tr>

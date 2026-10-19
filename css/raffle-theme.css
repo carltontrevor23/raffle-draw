@@ -244,40 +244,156 @@ body.raffle-app::before {
     outline-offset: 3px;
 }
 
+/* Mobile Navigation Button (Hamburger) */
 .raffle-app .mobile-menu-btn {
     display: none;
     flex: 0 0 auto;
+    flex-direction: column;
+    justify-content: center;
     gap: 5px;
-    padding: 11px;
-    border-color: var(--border-color);
+    padding: 10px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.raffle-app .mobile-menu-btn:hover {
+    border-color: var(--gold-primary);
 }
 
 .raffle-app .mobile-menu-btn span {
     display: block;
-    width: 19px;
-    height: 1px;
+    width: 20px;
+    height: 2px;
     background: var(--gold-light);
+    border-radius: 1px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-.raffle-app .mobile-menu {
-    z-index: 2002;
-    background: var(--bg-card);
-}
-
+/* Mobile Menu Backdrop Overlay */
 .raffle-app .mobile-menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 9, 8, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     z-index: 2001;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
+.raffle-app .mobile-menu-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Mobile Menu Drawer (Off-Canvas) */
+.raffle-app .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 320px;
+    max-width: 85vw;
+    background: #151310;
+    border-left: 1px solid var(--border-color);
+    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.7);
+    z-index: 2002;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    transform: translateX(100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.32s ease;
+}
+
+.raffle-app .mobile-menu.open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Close Button Inside Mobile Drawer */
 .raffle-app .mobile-menu-close {
-    z-index: 1;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.raffle-app .mobile-menu-close:hover {
+    color: var(--gold-light);
+    border-color: var(--gold-primary);
+}
+
+/* Mobile Navigation Links */
+.raffle-app .mobile-nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .raffle-app .mobile-nav-links a {
+    color: var(--text-secondary);
+    font-size: 1.15rem;
     font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    padding: 10px 0;
+    display: block;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: color 0.2s ease, padding-left 0.2s ease;
 }
 
+.raffle-app .mobile-nav-links a:hover,
+.raffle-app .mobile-nav-links a.active {
+    color: var(--gold-light);
+    padding-left: 6px;
+}
+
+/* Mobile Menu Action Buttons */
 .raffle-app .mobile-menu-cta {
+    margin-top: auto;
+    padding-top: 18px;
+    display: flex;
+    flex-direction: column;
     gap: 12px;
+}
+
+.raffle-app .mobile-menu-cta .btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+}
+
+/* Hide mobile menu elements completely on desktop */
+@media (min-width: 993px) {
+    .raffle-app .mobile-menu,
+    .raffle-app .mobile-menu-overlay,
+    .raffle-app .mobile-menu-btn {
+        display: none !important;
+    }
 }
 
 .raffle-app .hero {

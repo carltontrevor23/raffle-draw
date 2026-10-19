@@ -73,7 +73,16 @@ if ($db_connected && $pdo) {
     <nav class="nav" id="navbar">
         <div class="container">
             <div class="nav-inner">
-                <a href="index.php" class="logo">Customer <span>Appreciation</span></a>
+                <a href="index.php" class="logo logo-brand" aria-label="Cornerstone Asset Managers - Customer Appreciation">
+                    <span class="logo-badge">
+                        <img src="../images/cornerstone-logo.png" alt="Cornerstone Asset Managers" class="brand-logo-img">
+                    </span>
+                    <span class="logo-divider" aria-hidden="true"></span>
+                    <span class="logo-text">
+                        <span class="campaign-main">Customer Appreciation</span>
+                        <span class="campaign-sub">Raffle Draw System</span>
+                    </span>
+                </a>
                 <ul class="nav-links">
                     <li><a href="#dashboard" class="active" aria-current="page">Dashboard</a></li>
                     <li><a href="#winner-history">Winner History</a></li>
@@ -96,6 +105,11 @@ if ($db_connected && $pdo) {
                 <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
         </button>
+        <div class="mobile-menu-brand">
+            <span class="logo-badge">
+                <img src="../images/cornerstone-logo.png" alt="Cornerstone Asset Managers" class="brand-logo-img">
+            </span>
+        </div>
         <ul class="mobile-nav-links">
             <li><a href="#dashboard" class="active" aria-current="page">Dashboard</a></li>
             <li><a href="#winner-history">Winner History</a></li>
